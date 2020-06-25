@@ -214,27 +214,22 @@ def orange2():
 
 def compare_raw_intensity():
     t, x, y, z = nothing()
-    z = z - np.mean(z)
     l0 = y
     l0 = l0 - np.mean(l0)
 
     t, x, y, z = lemon()
-    z = z - np.mean(z)
     l1 = y
     l1 = l1 - np.mean(l1)
 
     t, x, y, z = kiwi()
-    z = z - np.mean(z)
     l2 = y
     l2 = l2 - np.mean(l2)
 
     t, x, y, z = orange1()
-    z = z - np.mean(z)
     l3 = y
     l3 = l3 - np.mean(l3)
 
     t, x, y, z = orange2()
-    z = z - np.mean(z)
     l4 = y
     l4 = l4 - np.mean(l4)
 
@@ -247,11 +242,20 @@ def compare_raw_intensity():
     l4 = l4[:L]
 
     orig_I = np.mean(np.abs(l0))
-    print("{0:.6f}".format((orig_I - np.mean(np.abs(l0)))/gram['l0']))
-    print("{0:.6f}".format((orig_I - np.mean(np.abs(l1)))/gram['l1']))
-    print("{0:.6f}".format((orig_I - np.mean(np.abs(l2)))/gram['l2']))
-    print("{0:.6f}".format((orig_I - np.mean(np.abs(l3)))/gram['l3']))
-    print("{0:.6f}".format((orig_I - np.mean(np.abs(l4)))/gram['l4']))
+
+    # Trial 1 not succeed
+    # print("{0:.6f}".format((orig_I - np.mean(np.abs(l0)))/gram['l0']))
+    # print("{0:.6f}".format((orig_I - np.mean(np.abs(l1)))/gram['l1']))
+    # print("{0:.6f}".format((orig_I - np.mean(np.abs(l2)))/gram['l2']))
+    # print("{0:.6f}".format((orig_I - np.mean(np.abs(l3)))/gram['l3']))
+    # print("{0:.6f}".format((orig_I - np.mean(np.abs(l4)))/gram['l4']))
+
+    # Trial 2, as shown in slide    
+    print("{0:.6f}".format((np.mean(np.abs(l0)))*gram['l0']))
+    print("{0:.6f}".format((np.mean(np.abs(l1)))*gram['l1']))
+    print("{0:.6f}".format((np.mean(np.abs(l2)))*gram['l2']))
+    print("{0:.6f}".format((np.mean(np.abs(l3)))*gram['l3']))
+    print("{0:.6f}".format((np.mean(np.abs(l4)))*gram['l4']))
 
     fig, (ax0, ax1, ax2, ax3, ax4) = plt.subplots(nrows=5)
     ax0.plot(t, l0)
