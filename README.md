@@ -1,1 +1,4 @@
 # VibroScale
+
+Run main.py.
+
