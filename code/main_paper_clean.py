@@ -8,8 +8,45 @@ from sklearn.model_selection import KFold
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 import statistics
-
+from scipy.stats import pearsonr
 from resample import resample as linear_interpl
+
+
+
+# customized from https://github.com/scikit-learn/scikit-learn/blob/19d7b1f06/sklearn/metrics/_regression.py#L197
+def mean_absolute_percentage_error(y_true, y_pred):
+    """Mean absolute percentage error regression loss
+    Parameters
+    ----------
+    y_true : array-like of shape (n_samples,) or (n_samples, n_outputs)
+        Ground truth (correct) target values.
+    y_pred : array-like of shape (n_samples,) or (n_samples, n_outputs)
+        Estimated target values.
+    Returns
+    -------
+        MAPE output is non-negative floating point. The best value is 0.0.
+        But note the fact that bad predictions can lead to arbitarily large
+        MAPE values, especially if some y_true values are very close to zero.
+        Note that we return a large value instead of `inf` when y_true is zero.
+    Examples
+    --------
+    >>> from sklearn.metrics import mean_absolute_percentage_error
+    >>> y_true = [3, -0.5, 2, 7]
+    >>> y_pred = [2.5, 0.0, 2, 8]
+    >>> mean_absolute_percentage_error(y_true, y_pred)
+    0.3273...
+    >>> y_true = [[0.5, 1], [-1, 1], [7, -6]]
+    >>> y_pred = [[0, 2], [-1, 2], [8, -5]]
+    >>> mean_absolute_percentage_error(y_true, y_pred)
+    0.5515...
+    """
+    mape = np.abs(y_pred - y_true) / np.abs(y_true)
+    output_errors = np.average(mape, axis=0)
+    return output_errors
+
+
+def mean_abs_perc_err(pred, gt):
+    return mean_absolute_percentage_error(gt, pred)
 
 
 def rmse(predictions, targets):
@@ -147,15 +184,15 @@ if __name__ == '__main__':
         gt = np.hstack(final_GT_list)
         print('total number:', len(gt))
         print('min/max weight (GT):', np.min(gt), np.max(gt))
-        rmse_val = rmse(pred, gt)
         print("MAE (mean absolute error) is: ", mean_absolute_error(pred, gt))
-        print("rms error is: " + str(rmse_val) + '\n\n')
+        print("Mean absolute percentage error", mean_abs_perc_err(pred, gt))
+        # print("rms error is: " + str(rmse(pred, gt)) + '\n\n')
 
         # standard deviation for absolute error
-        print('gt', gt)
-        print('pred', pred)
-        print(np.abs(gt-pred))
-        print("standard deviation for absolute error", statistics.stdev(np.abs(gt-pred)))
+        # print('gt', gt)
+        # print('pred', pred)
+        # print(np.abs(gt-pred))
+        # print("standard deviation for absolute error", statistics.stdev(np.abs(gt-pred)))
 
         weights_all += weights
         intensity_load_all += intensity_load
@@ -170,6 +207,9 @@ if __name__ == '__main__':
     data_all = data_all.sort_values('intensity_net')
     X = data_all['intensity_net'].values
     y = data_all['weights'].values
+
+    print("Pearson correlation coefficient: ", pearsonr(X, y))
+
     kf = KFold(n_splits=len(weights_all), random_state=1, shuffle=True)
     kf.get_n_splits(X, y)
     final_GT_list = []
@@ -179,12 +219,9 @@ if __name__ == '__main__':
         X_train, X_test = X[train_index].reshape(-1, 1), X[test_index].reshape(-1, 1)
         y_train, y_test = y[train_index], y[test_index]
         reg = LinearRegression().fit(X_train, y_train)
-        # print(reg.score(X_train, y_train))
-        # print(reg.coef_)
-        pred = reg.predict(X_test)
+        # print(reg.score(X_train, y_train), reg.coef_)
         final_GT_list.append(y_test)
-        final_pred_list.append(pred)
-
+        final_pred_list.append(reg.predict(X_test))
 
     pred = np.hstack(final_pred_list)
     gt = np.hstack(final_GT_list)
@@ -192,12 +229,28 @@ if __name__ == '__main__':
     print('objects:',paths)
     print('total number:', len(gt))
     print('min/max weight (GT):', np.min(gt), np.max(gt))
-    rmse_val = rmse(pred, gt)
+    # print("rms error is: " + str(rmse(pred, gt)))
     print("MAE (mean absolute error) is: ", mean_absolute_error(pred, gt))
-    print("rms error is: " + str(rmse_val))
+    print("Mean absolute percentage error", mean_abs_perc_err(pred, gt))
 
-    plt.scatter(weights_all, intensity_net_all)
+    fig = plt.figure(figsize=(8,7))
+    ax = fig.add_subplot(1,1,1)
+    ax.scatter(weights_all, intensity_net_all,linewidths=7)
+    plt.xticks(fontsize=28)
+    plt.yticks(fontsize=28)
+    plt.ylabel("Relative Intensity (m/s^2)", fontsize=28)
+    plt.xlabel("Weight (grams)", fontsize=28)
+    plt.margins(0,0, tight=True)
+    plt.xlim(0,400)
+    plt.xticks([0, 100, 200, 300, 400])
+    plt.ylim(-1,6)
+    # Hide the right and top spines
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    # Only show ticks on the left and bottom spines
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_ticks_position('bottom')
+    fig.tight_layout()
+    fig.savefig(os.path.join(script_path, "../Figure/intensity_vs_weight.eps"), format='eps')
+    fig.savefig(os.path.join(script_path, "../Figure/intensity_vs_weight.jpg"), format='jpg')
     # plt.show()
-    plt.savefig(os.path.join(script_path, "../Figure/intensity_vs_weight.eps"), format='eps')
-
-
