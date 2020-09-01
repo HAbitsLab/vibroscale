@@ -1,0 +1,11 @@
+rename file name:
+
+BAPPLE_1_ -> APPLE_1_
+BAPPLE_2_ -> APPLE_2_
+...
+BAPPLE_14_ -> APPLE_14_
+
+SAPPLE_1_ -> APPLE_15_
+SAPPLE_2_ -> APPLE_16_
+...
+SAPPLE_3_ -> APPLE_17_
