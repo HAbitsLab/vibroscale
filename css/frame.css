@@ -332,6 +332,11 @@ hr {
   margin: 5px 40px 25px 0;
 }
 
+.image-right-wrap-text {
+  float: right;
+  margin: 5px 40px 25px 0;
+}
+
 .image-caption {
   width: 100%;
   text-align: center;
@@ -521,6 +526,9 @@ ol.nested>li:before {
   font-size: 12px;
 }
 
+.text-smallest {
+  font-size: 10px;
+}
 .text-italic {
   font-style: italic;
 }
