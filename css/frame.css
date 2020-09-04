@@ -11,7 +11,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: white;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   left: 0;
   right: 0;
   width: auto;
@@ -45,7 +45,7 @@ h2 {
   margin: 10px 0 0 0;
   padding: 0;
   font-weight: bold;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
 }
 
 h3 {
@@ -53,7 +53,7 @@ h3 {
   margin: 10px 0 0 0;
   padding: 0;
   font-weight: bold;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
 }
 
 ul,
@@ -111,7 +111,7 @@ hr {
 
 .logo a {
   color: rgba(255, 255, 255, 0.8);
-  font-family: 'Open Sans Condensed', Helvetica, Arial, sans-serif;
+  font-family:  sans-serif;
   font-size: 30px;
   text-decoration: none;
   font-weight: 700;
@@ -140,7 +140,7 @@ hr {
   transition: opacity 0.1s ease-in-out;
   -moz-transition: opacity 0.1s ease-in-out;
   -webkit-transition: opacity 0.1s ease-in-out;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   white-space: nowrap;
 }
 
@@ -164,7 +164,7 @@ hr {
   position: relative;
   margin: 0 auto;
   font-size: 16px;
-  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  font-family:  sans-serif;
   font-weight: 300;
   line-height: 1.5;
   max-width: 900px;
@@ -307,6 +307,9 @@ hr {
 .image.center {
   align-self: center;
 }
+.image.right {
+  align-self: right;
+}
 
 .image img,
 .image video {
@@ -336,13 +339,30 @@ hr {
   margin-bottom: 10px;
 }
 
-.max-width-400 {
-  max-width: 400px;
+.max-width-70 {
+  max-width: 70px;
 }
 
 .max-width-140 {
   max-width: 140px;
 }
+
+.max-width-200 {
+  max-width: 200px;
+}
+
+.max-width-300 {
+  max-width: 300px;
+}
+
+.max-width-400 {
+  max-width: 400px;
+} 
+
+.max-width-600 {
+  max-width: 600px;
+} 
+
 
 ol.publication {
   display: flex;
