@@ -195,7 +195,18 @@
               or when variously weighted apples are placed on the smartphone.
             </p>
            <br>
+            
+            <p class="text">
+              <strong>Evaluation strategy</strong>: To evaluate the performance of our model, we performed a leave-one-object-out cross validation for each object and then for all objects combined. When evaluating the N items, we build a linear regression model using N-1 items, and test it on the Nth item, we repeat this step N times. We tested different axes of the accelerometer and performed Principle Component Analysis (PCA) to calculate the PCA components of the x/y axis and x/y/z axis for intensity calculation. The dominant frequency components of the different axes were also tested to derive intensity. In the end, we found that the most prominent variation was observed when using y-axis data in the time domain.
+            </p>
+          
 
+            <p class="text">
+            <img class="image image-wrap-text max-width-300" src="img/Figure 4.png">
+            The picture left shows the distribution of relative vibration intensity based on weight. The relationship is noisy due to the variation in natural frequency of the objects and due to the employed prediction model. Nonetheless, we observed a moderate linear correlation, with a Pearson correlation coefficient of 0.70 (p=6e-9). Overall, the objects used in our study ranged from 53 grams to 376 grams. When we performed a leave-one-object-out cross validation, we observed that the mean absolute error (MAE) in predicting the weight of the object was 33 grams, and the mean absolute percentage error (MAPE) was 23.7%. The MAE and MAPE for apples were 12.4 grams and 7.7%, respectively, while they were 41.3 grams and 33.2% for onions.
+            </p>
+           
+           
             <p class="text">
               The table below indicates objects used in the study along with their actual weight range and error in predicted weights. 
             </p>
@@ -253,18 +264,6 @@
               <p style="text-align:center;">
                (MAE, mean absolute error; MAPE, mean absolute percentage error.)
               </p>
-           
-            
-            <p class="text">
-              <strong>Evaluation strategy</strong>: To evaluate the performance of our model, we performed a leave-one-object-out cross validation for each object and then for all objects combined. When evaluating the N items, we build a linear regression model using N-1 items, and test it on the Nth item, we repeat this step N times. We tested different axes of the accelerometer and performed Principle Component Analysis (PCA) to calculate the PCA components of the x/y axis and x/y/z axis for intensity calculation. The dominant frequency components of the different axes were also tested to derive intensity. In the end, we found that the most prominent variation was observed when using y-axis data in the time domain.
-            </p>
-          
-
-            <p class="text">
-            <img class="image image-wrap-text max-width-300" src="img/Figure 4.png">
-            The picture left shows the distribution of relative vibration intensity based on weight. The relationship is noisy due to the variation in natural frequency of the objects and due to the employed prediction model. Nonetheless, we observed a moderate linear correlation, with a Pearson correlation coefficient of 0.70 (p=6e-9). Overall, the objects used in our study ranged from 53 grams to 376 grams. When we performed a leave-one-object-out cross validation, we observed that the mean absolute error (MAE) in predicting the weight of the object was 33 grams, and the mean absolute percentage error (MAPE) was 23.7%. The MAE and MAPE for apples were 12.4 grams and 7.7%, respectively, while they were 41.3 grams and 33.2% for onions.
-            </p>
-           
            
             
             <p class="text">
