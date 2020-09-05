@@ -522,6 +522,9 @@ ol.nested>li:before {
   font-size: 20px;
 }
 
+.text-middle {
+  font-size: 15px;
+}
 .text-small {
   font-size: 12px;
 }
